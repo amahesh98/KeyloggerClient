@@ -1,0 +1,7 @@
+#!/bin/sh 
+
+if [ ! -d "./venv" ]; then
+  python3 -m venv source/venv
+fi
+source source/venv/bin/activate
+pip install -r source/requirements.txt

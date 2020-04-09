@@ -8,8 +8,8 @@ import sys
 user = ''
 logFilePath = ''
 
-MAX_BUFFER_LEN = 10
-SEND_WRITE_COUNT = 3
+MAX_BUFFER_LEN = 100
+SEND_WRITE_COUNT = 5
 
 buffer = []
 writeCount = []

